@@ -204,6 +204,9 @@ func getPubKey(location string) (*os.File, error) {
 		fallthrough
 	case "https":
 		return downloadKey(u.String())
+	case "s3":
+		vfs := &vfsS3{}
+		return vfs.downloadKey(u)
 	}
 
 	return nil, fmt.Errorf("only http and https urls supported")
